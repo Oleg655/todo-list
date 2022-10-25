@@ -30,8 +30,8 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx}": [
-      "npm run lint-fix",
+    "src/**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix",
       "prettier --write"
     ]
   },
