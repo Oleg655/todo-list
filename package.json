@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,6 +11,7 @@
     "@types/node": "^16.18.0",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "node-sass": "^7.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -24,12 +26,6 @@
     "lint": "eslint ./src",
     "lint-fix": "eslint ./src --fix",
     "prepare": "husky install"
-  },
-  "lint-staged": {
-    "src/**/*.{js,ts,jsx,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   },
   "browserslist": {
     "production": [
@@ -57,7 +53,6 @@
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.0",
-    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1"
   }
 }
