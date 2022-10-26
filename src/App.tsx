@@ -1,21 +1,12 @@
+import fetchTodoList from 'api/fetch-todolists';
 import './App.css';
 
 const App: React.FC = () => {
+  const data = fetchTodoList.getTodoList();
+  console.log(data);
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit<code>src/App.tsx</code>and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header">{JSON.stringify(data)}</header>
     </div>
   );
 };
