@@ -23,6 +23,8 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+	"dot-notation": ["off"],
+	"@typescript-eslint/dot-notation": ["off"],
     "react/jsx-uses-react": ["off"],
     "react/react-in-jsx-scope": ["off"],
     "import/order": [

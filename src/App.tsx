@@ -2,10 +2,12 @@ import fetchTodoList from 'api/fetch-todolists';
 import './App.css';
 
 const url = process.env.REACT_APP_BASE_URL;
-const endpoint = process.env.REACT_APP_TODO_LISTS;
 
 const App: React.FC = () => {
-  const data = fetchTodoList.getTodoList(url, endpoint);
+  const data = fetchTodoList.getTodoList(url);
+  const postData = fetchTodoList.postTodoList(url);
+  console.log(data);
+  console.log(postData);
   console.log(data);
   return (
     <div className="App">
