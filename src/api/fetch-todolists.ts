@@ -60,7 +60,7 @@ const fetchTodoList = {
 
 export default fetchTodoList;
 
-export type ResponseType<D> = {
+type ResponseType<D> = {
   resultCode: number;
   messages: Array<string>;
   fieldsErrors: Array<string>;
