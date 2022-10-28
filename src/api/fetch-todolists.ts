@@ -1,7 +1,7 @@
 const apiKey = process.env.REACT_APP_API_KEY || '';
 
 const fetchTodoList = {
-  getTodoList: async (baseUrl: string | undefined) => {
+  getTodoList: async (baseUrl: string | undefined): Promise<TodoListType[]> => {
     const response = await fetch(`${baseUrl}/todo-lists`, {
       method: 'GET',
       credentials: 'include',
@@ -9,7 +9,10 @@ const fetchTodoList = {
     const data = await response.json();
     return data;
   },
-  postTodoList: async (baseUrl: string | undefined, newTitle: { title: string }) => {
+  createTodoList: async (
+    baseUrl: string | undefined,
+    newTitle: { title: string },
+  ): Promise<ResponseType<{ item: TodoListType }>> => {
     const response = await fetch(`${baseUrl}/todo-lists/`, {
       method: 'POST',
       credentials: 'include',
@@ -22,7 +25,10 @@ const fetchTodoList = {
     const data = await response.json();
     return data;
   },
-  deleteTodoList: async (baseUrl: string | undefined, todoListId: string) => {
+  deleteTodoList: async (
+    baseUrl: string | undefined,
+    todoListId: string,
+  ): Promise<ResponseType<{}>> => {
     const response = await fetch(`${baseUrl}/todo-lists/${todoListId}`, {
       method: 'DELETE',
       credentials: 'include',
@@ -37,7 +43,7 @@ const fetchTodoList = {
     baseUrl: string | undefined,
     todoListId: string,
     newTitle: { title: string },
-  ) => {
+  ): Promise<ResponseType<{}>> => {
     const response = await fetch(`${baseUrl}/todo-lists/${todoListId}`, {
       method: 'PUT',
       credentials: 'include',
@@ -53,3 +59,17 @@ const fetchTodoList = {
 };
 
 export default fetchTodoList;
+
+export type ResponseType<D> = {
+  resultCode: number;
+  messages: Array<string>;
+  fieldsErrors: Array<string>;
+  data: D;
+};
+
+type TodoListType = {
+  id: string;
+  addedDate: string;
+  order: number;
+  title: string;
+};
