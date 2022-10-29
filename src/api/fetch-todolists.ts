@@ -1,13 +1,22 @@
 const apiKey = process.env.REACT_APP_API_KEY || '';
 
 const fetchTodoList = {
-  getTodoList: async (baseUrl: string | undefined): Promise<TodoListType[]> => {
-    const response = await fetch(`${baseUrl}/todo-lists`, {
-      method: 'GET',
-      credentials: 'include',
-    });
-    const data = await response.json();
-    return data;
+  getTodoLists: async (baseUrl: string | undefined): Promise<TodoListType[]> => {
+    try {
+      const response = await fetch(`${baseUrl}/tod-lists`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        return error;
+      }
+
+      const todoLists = await response.json();
+      return todoLists;
+    } catch (error: any) {
+      return error.message;
+    }
   },
   createTodoList: async (
     baseUrl: string | undefined,
@@ -67,7 +76,7 @@ type ResponseType<D> = {
   data: D;
 };
 
-type TodoListType = {
+export type TodoListType = {
   id: string;
   addedDate: string;
   order: number;

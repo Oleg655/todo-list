@@ -5,11 +5,11 @@ const initialState = {
 };
 
 const tasksSlice = createSlice({
-  name: 'todoList',
+  name: 'tasks',
   initialState,
   reducers: {
-    addTasks() {},
-    removeTasks() {},
+    addTask() {},
+    removeTask() {},
   },
 });
 

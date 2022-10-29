@@ -12,7 +12,7 @@ const fetchTasks = {
     const data = await response.json();
     return data;
   },
-  createTasks: async (
+  createTask: async (
     baseUrl: string | undefined,
     todoListId: string,
     newTaskTitle: { title: string },
@@ -29,7 +29,7 @@ const fetchTasks = {
     const data = await response.json();
     return data;
   },
-  deleteTasks: async (
+  deleteTask: async (
     baseUrl: string | undefined,
     todoListId: string,
     taskId: string,
@@ -44,7 +44,7 @@ const fetchTasks = {
     const data = await response.json();
     return data;
   },
-  updateTasks: async (
+  updateTask: async (
     baseUrl: string | undefined,
     todoListId: string,
     taskId: string,

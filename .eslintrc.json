@@ -23,6 +23,9 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+    "no-useless-return": ["off"],
+		"no-param-reassign": ["off"],
+    "consistent-return": ["off"],
     "dot-notation": ["off"],
     "@typescript-eslint/dot-notation": ["off"],
     "react/jsx-uses-react": ["off"],
