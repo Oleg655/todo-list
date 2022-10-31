@@ -2,35 +2,28 @@ const apiKey = process.env.REACT_APP_API_KEY || '';
 
 const fetchTodoList = {
   getTodoLists: async (baseUrl: string | undefined): Promise<TodoListType[]> => {
-    try {
-      const response = await fetch(`${baseUrl}/tod-lists`, {
-        method: 'GET',
-        credentials: 'include',
-      });
-      if (!response.ok) {
-        const error = await response.json();
-        return error;
-      }
+    const response = await fetch(`${baseUrl}/todo-lists`, {
+      method: 'GET',
+      credentials: 'include',
+    });
 
-      const todoLists = await response.json();
-      return todoLists;
-    } catch (error: any) {
-      return error.message;
-    }
+    const todoLists = await response.json();
+    return todoLists;
   },
   createTodoList: async (
     baseUrl: string | undefined,
-    newTitle: { title: string },
+    newTitle: string,
   ): Promise<ResponseType<{ item: TodoListType }>> => {
     const response = await fetch(`${baseUrl}/todo-lists/`, {
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify(newTitle),
+      body: JSON.stringify({ title: newTitle }),
       headers: {
         'API-KEY': apiKey,
         'Content-Type': 'application/json',
       },
     });
+
     const data = await response.json();
     return data;
   },
@@ -45,23 +38,25 @@ const fetchTodoList = {
         'API-KEY': apiKey,
       },
     });
+
     const data = await response.json();
     return data;
   },
   updateTodoList: async (
     baseUrl: string | undefined,
     todoListId: string,
-    newTitle: { title: string },
+    newTitle: string,
   ): Promise<ResponseType<{}>> => {
     const response = await fetch(`${baseUrl}/todo-lists/${todoListId}`, {
       method: 'PUT',
       credentials: 'include',
-      body: JSON.stringify(newTitle),
+      body: JSON.stringify({ title: newTitle }),
       headers: {
         'API-KEY': apiKey,
         'Content-Type': 'application/json',
       },
     });
+
     const data = await response.json();
     return data;
   },
@@ -69,7 +64,7 @@ const fetchTodoList = {
 
 export default fetchTodoList;
 
-type ResponseType<D> = {
+export type ResponseType<D = {}> = {
   resultCode: number;
   messages: Array<string>;
   fieldsErrors: Array<string>;
