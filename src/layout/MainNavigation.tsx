@@ -9,10 +9,20 @@ const MainNavigation = () => {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <NavLink to="todo-lists">All Todo Lists</NavLink>
+            <NavLink
+              to="todo-lists"
+              className={({ isActive }) => (isActive ? styles.active : undefined)}
+            >
+              All Todo Lists
+            </NavLink>
           </li>
           <li>
-            <NavLink to="new-todo-lists">New Todo List</NavLink>
+            <NavLink
+              to="new-todo-lists"
+              className={({ isActive }) => (isActive ? styles.active : undefined)}
+            >
+              New Todo List
+            </NavLink>
           </li>
         </ul>
       </nav>
