@@ -23,8 +23,25 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+    // "jsx-a11y/label-has-associated-control": [
+    //   "error",
+    //   {
+    //     "required": {
+    //       "some": ["nesting", "id"]
+    //     }
+    //   }
+    // ],
+    // "jsx-a11y/label-has-for": [
+    //   "error",
+    //   {
+    //     "required": {
+    //       "some": ["nesting", "id"]
+    //     }
+    //   }
+    // ],
+
     "no-useless-return": ["off"],
-		"no-param-reassign": ["off"],
+    "no-param-reassign": ["off"],
     "consistent-return": ["off"],
     "dot-notation": ["off"],
     "@typescript-eslint/dot-notation": ["off"],

@@ -1,5 +1,7 @@
+import TodoListsList from 'components/todo-lists/TodoListList';
+
 const AllTodoLists = () => {
-  return <div>AllTodoLists</div>;
+  return <TodoListsList />;
 };
 
 export default AllTodoLists;
