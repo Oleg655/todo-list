@@ -1,18 +1,187 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import fetchTasks, { GetTasksResponse, TaskType, Response } from 'api/fetch-tasks';
+import { RootState } from 'store';
 
-const initialState = {
-  tasks: [],
+type InitialState = {
+  tasks: TaskType[];
+  loading: boolean;
+  error: string | null;
 };
+
+const initialState: InitialState = {
+  tasks: [],
+  loading: false,
+  error: null,
+};
+
+type GetParametersData = {
+  baseUrl: string;
+  todoListId: string | undefined;
+};
+
+type DeleteParametersData = {
+  baseUrl: string;
+  todoListId: string | undefined;
+  taskId: string;
+};
+
+type CreateParametersData = {
+  baseUrl: string;
+  todoListId: string | undefined;
+  taskTitle: string;
+};
+
+// type UpdateParametersData = {
+//   baseUrl: string;
+//   todoListId: string;
+//   model: UpdateTaskModel;
+// };
+
+type UpdateTaskModel = {
+  title?: string;
+  description?: string;
+  status?: number;
+  priority?: number;
+  startDate?: string;
+  deadline?: string;
+};
+
+export const getTasks = createAsyncThunk<
+  GetTasksResponse,
+  GetParametersData,
+  { rejectValue: string }
+>('tasks/getTasks', async ({ baseUrl, todoListId }, { rejectWithValue }) => {
+  const data: GetTasksResponse = await fetchTasks.getTasks(baseUrl, todoListId);
+
+  if (!data) {
+    return rejectWithValue('Todo-lists not found');
+  }
+
+  return data;
+});
+
+export const deleteTask = createAsyncThunk<
+  { taskId: string },
+  DeleteParametersData,
+  { rejectValue: string }
+>('tasks/deleteTask', async ({ baseUrl, todoListId, taskId }, { rejectWithValue }) => {
+  const data = await fetchTasks.deleteTask(baseUrl, todoListId, taskId);
+  if (!data) {
+    return rejectWithValue('Title is not assiagment');
+  }
+
+  return { taskId };
+});
+
+export const createTask = createAsyncThunk<
+  Response<{ item: TaskType }>,
+  CreateParametersData,
+  { rejectValue: string }
+>('tasks/createTask', async ({ baseUrl, todoListId, taskTitle }, { rejectWithValue }) => {
+  const data = await fetchTasks.createTask(baseUrl, todoListId, taskTitle);
+  if (!data) {
+    return rejectWithValue('Title is not assiagment');
+  }
+
+  return data;
+});
+
+export const updateTask = createAsyncThunk(
+  'tasks/updateTask',
+  async (
+    {
+      baseUrl,
+      todoListId,
+      model,
+    }: { baseUrl: string; todoListId: string | undefined; model: UpdateTaskModel },
+    { rejectWithValue, getState },
+  ) => {
+    const state = getState() as RootState;
+    const task: TaskType | undefined = state.tasks.tasks.find(
+      item => item.todoListId === todoListId,
+    );
+    const taskId = task?.id;
+
+    const apiModel: UpdateTaskModel = {
+      title: task?.title,
+      description: task?.description,
+      status: task?.status,
+      priority: task?.priority,
+      startDate: task?.startDate,
+      deadline: task?.deadline,
+      ...model,
+    };
+
+    const data: Response<{ item: TaskType }> = await fetchTasks.updateTask(
+      baseUrl,
+      todoListId,
+      taskId,
+      apiModel,
+    );
+
+    if (!data) {
+      return rejectWithValue('Title is not assiagment');
+    }
+
+    return data;
+  },
+);
 
 const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
-  reducers: {
-    addTask() {},
-    removeTask() {},
+  reducers: {},
+  extraReducers: builder => {
+    builder
+      .addCase(getTasks.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTasks.fulfilled, (state, action) => {
+        state.tasks = action.payload.items;
+        state.loading = false;
+      })
+      .addCase(deleteTask.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        state.tasks = state.tasks.filter(task => {
+          return task.id !== action.payload.taskId;
+        });
+        state.loading = false;
+      })
+      .addCase(createTask.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createTask.fulfilled, (state, action) => {
+        state.tasks.push(action.payload.data.item);
+        state.loading = false;
+      })
+      .addCase(updateTask.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateTask.fulfilled, (state, action) => {
+        const existingTaskId = state.tasks.findIndex(
+          task => task.id === action.payload.data.item.id,
+        );
+        const existingTask = state.tasks[existingTaskId];
+        let updatedTasks;
+        if (existingTask) {
+          const updatedTask = {
+            ...existingTask,
+            title: action.payload.data.item.title,
+          };
+          updatedTasks = state.tasks;
+          updatedTasks[existingTaskId] = updatedTask;
+        } else {
+          updatedTasks = state.tasks.concat(action.payload.data.item);
+        }
+        state.loading = false;
+      });
   },
 });
-
-export const tasksActions = tasksSlice.actions;
 
 export default tasksSlice;

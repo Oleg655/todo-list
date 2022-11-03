@@ -3,7 +3,7 @@ const apiKey = process.env.REACT_APP_API_KEY || '';
 const fetchTasks = {
   getTasks: async (
     baseUrl: string | undefined,
-    todoListId: string,
+    todoListId: string | undefined,
   ): Promise<GetTasksResponse> => {
     const response = await fetch(`${baseUrl}/todo-lists/${todoListId}/tasks`, {
       method: 'GET',
@@ -14,13 +14,13 @@ const fetchTasks = {
   },
   createTask: async (
     baseUrl: string | undefined,
-    todoListId: string,
-    newTaskTitle: { title: string },
-  ): Promise<Response<TaskType>> => {
+    todoListId: string | undefined,
+    title: string,
+  ): Promise<Response<{ item: TaskType }>> => {
     const response = await fetch(`${baseUrl}/todo-lists/${todoListId}/tasks`, {
       method: 'POST',
       credentials: 'include',
-      body: JSON.stringify(newTaskTitle),
+      body: JSON.stringify({ title }),
       headers: {
         'API-KEY': apiKey,
         'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ const fetchTasks = {
   },
   deleteTask: async (
     baseUrl: string | undefined,
-    todoListId: string,
+    todoListId: string | undefined,
     taskId: string,
   ): Promise<Response> => {
     const response = await fetch(`${baseUrl}/todo-lists/${todoListId}/tasks/${taskId}`, {
@@ -46,10 +46,10 @@ const fetchTasks = {
   },
   updateTask: async (
     baseUrl: string | undefined,
-    todoListId: string,
-    taskId: string,
-    model: UpdateTaskModel,
-  ): Promise<Response> => {
+    todoListId: string | undefined,
+    taskId: string | undefined,
+    model: UpdateTaskParamsModel,
+  ): Promise<Response<{ item: TaskType }>> => {
     const response = await fetch(`${baseUrl}/todo-lists/${todoListId}/tasks/${taskId}`, {
       method: 'PUT',
       credentials: 'include',
@@ -66,20 +66,20 @@ const fetchTasks = {
 
 export default fetchTasks;
 
-type Response<D = {}> = {
+export type Response<D = {}> = {
   resultCode: number;
   messages: Array<string>;
   fieldsErrors: Array<string>;
   data: D;
 };
 
-type GetTasksResponse = {
+export type GetTasksResponse = {
   error: string | null;
-  items: TaskType;
+  items: TaskType[];
   totalCount: number;
 };
 
-type TaskType = {
+export type TaskType = {
   description: string;
   title: string;
   status: number;
@@ -92,11 +92,11 @@ type TaskType = {
   addedDate: string;
 };
 
-type UpdateTaskModel = {
-  title: string;
-  description: string;
-  status: number;
-  priority: number;
-  startDate: string;
-  deadline: string;
+export type UpdateTaskParamsModel = {
+  title?: string | undefined;
+  description?: string | undefined;
+  status?: number | undefined;
+  priority?: number | undefined;
+  startDate?: string | undefined;
+  deadline?: string | undefined;
 };

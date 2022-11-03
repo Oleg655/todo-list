@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AddItemForm from 'components/todo-lists/AddItemForm';
+import AddItemForm from 'components/input/AddItemForm';
 import { useAppDispatch } from 'hooks/types';
 import { createTodoList } from 'store/todo-lists-slice';
 

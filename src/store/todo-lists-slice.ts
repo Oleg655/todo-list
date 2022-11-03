@@ -18,20 +18,6 @@ const initialState: InitialState = {
   error: null,
 };
 
-export const getTodoLists = createAsyncThunk<
-  TodoListType[],
-  string,
-  { rejectValue: string }
->('todoLists/getTodoLists', async (baseUrl: string, { rejectWithValue }) => {
-  const data = await fetchTodoList.getTodoLists(baseUrl);
-
-  if (!data) {
-    return rejectWithValue('Todo-lists not found');
-  }
-
-  return data;
-});
-
 type UpdateParametersData = {
   baseUrl: string;
   todoListId: string;
@@ -47,6 +33,20 @@ type DeleteParametersData = {
   baseUrl: string;
   todoListId: string;
 };
+
+export const getTodoLists = createAsyncThunk<
+  TodoListType[],
+  string,
+  { rejectValue: string }
+>('todoLists/getTodoLists', async (baseUrl: string, { rejectWithValue }) => {
+  const data = await fetchTodoList.getTodoLists(baseUrl);
+
+  if (!data) {
+    return rejectWithValue('Todo-lists not found');
+  }
+
+  return data;
+});
 
 export const updateTodoList = createAsyncThunk<
   { todoListId: string; todoListTitle: string },
