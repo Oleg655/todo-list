@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import styles from './TodoListList.module.scss';
+import styles from './TodoListItem.module.scss';
 
 type TodoListItemProps = {
   id: string;

@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { useAppSelector } from 'hooks/types';
+import { Link, useParams } from 'react-router-dom';
 
 import styles from './TaskItem.module.scss';
 
@@ -7,12 +8,16 @@ type TaskItemProps = {
 };
 
 const TaskItem = ({ title }: TaskItemProps) => {
+  const { id } = useParams();
+  const todoLists = useAppSelector(state => state.todoList.todoLists);
+  const currentTodoList = todoLists.find(todoList => todoList.id === id);
+
   return (
     <li className={styles.item}>
       <figure>
         <blockquote>
           <p>{title}</p>
-          <figcaption>name todolist</figcaption>
+          <figcaption>{currentTodoList!.title}</figcaption>
         </blockquote>
       </figure>
       <Link to="edit">Edit Task</Link>
