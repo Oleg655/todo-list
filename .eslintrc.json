@@ -23,23 +23,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
-    // "jsx-a11y/label-has-associated-control": [
-    //   "error",
-    //   {
-    //     "required": {
-    //       "some": ["nesting", "id"]
-    //     }
-    //   }
-    // ],
-    // "jsx-a11y/label-has-for": [
-    //   "error",
-    //   {
-    //     "required": {
-    //       "some": ["nesting", "id"]
-    //     }
-    //   }
-    // ],
-
+    "jsx-a11y/no-autofocus": ["off"],
     "no-useless-return": ["off"],
     "no-param-reassign": ["off"],
     "consistent-return": ["off"],

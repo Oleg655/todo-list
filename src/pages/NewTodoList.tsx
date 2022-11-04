@@ -4,13 +4,11 @@ import AddItemForm from 'components/input/AddItemForm';
 import { useAppDispatch } from 'hooks/types';
 import { createTodoList } from 'store/todo-lists-slice';
 
-const baseUrl = process.env.REACT_APP_BASE_URL || '';
-
 const NewTodoList = () => {
   const dispatch = useAppDispatch();
 
   const addTodoList = (todoListTitle: string) => {
-    dispatch(createTodoList({ baseUrl, todoListTitle }));
+    dispatch(createTodoList({ todoListTitle }));
   };
 
   return (

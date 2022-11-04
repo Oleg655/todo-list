@@ -1,9 +1,10 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, KeyboardEvent } from 'react';
 
 // import LoadingSpinner from 'components/ui/LoadingSpinner';
 import Wrapper from 'components/ui/Wrapper';
 
 import styles from './AddItemForm.module.scss';
+import Button from './Button';
 
 type AddItemFormProps = {
   onAddItem: (title: string) => void;
@@ -18,6 +19,13 @@ const AddItemForm = ({ onAddItem }: AddItemFormProps) => {
   const onAddItemHandler = () => {
     if (title.trim() !== '') {
       onAddItem(title);
+      setTitle('');
+    }
+  };
+
+  const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      onAddItemHandler();
     }
   };
 
@@ -26,14 +34,17 @@ const AddItemForm = ({ onAddItem }: AddItemFormProps) => {
       <div>
         <div className={styles.control}>
           <label htmlFor="text">
-            <input onChange={onChangeHandler} value={title} id="text" />
+            <input
+              onKeyDown={onKeyPressHandler}
+              onChange={onChangeHandler}
+              value={title}
+              id="text"
+            />
           </label>
         </div>
 
         <div className={styles.actions}>
-          <button onClick={onAddItemHandler} type="button" className="btn">
-            Add
-          </button>
+          <Button onButtonClick={onAddItemHandler} title="Add" />
         </div>
       </div>
       {/* {props.isLoading && (

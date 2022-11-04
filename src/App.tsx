@@ -9,13 +9,11 @@ import NewTodoList from 'pages/NewTodoList';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { getTodoLists } from 'store/todo-lists-slice';
 
-const baseUrl = process.env.REACT_APP_BASE_URL || '';
-
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getTodoLists(baseUrl));
+    dispatch(getTodoLists());
   }, [dispatch]);
 
   return (

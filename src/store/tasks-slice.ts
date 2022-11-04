@@ -15,18 +15,15 @@ const initialState: InitialState = {
 };
 
 type GetParametersData = {
-  baseUrl: string;
   todoListId: string | undefined;
 };
 
 type DeleteParametersData = {
-  baseUrl: string;
   todoListId: string | undefined;
   taskId: string;
 };
 
 type CreateParametersData = {
-  baseUrl: string;
   todoListId: string | undefined;
   taskTitle: string;
 };
@@ -50,8 +47,8 @@ export const getTasks = createAsyncThunk<
   GetTasksResponse,
   GetParametersData,
   { rejectValue: string }
->('tasks/getTasks', async ({ baseUrl, todoListId }, { rejectWithValue }) => {
-  const data: GetTasksResponse = await fetchTasks.getTasks(baseUrl, todoListId);
+>('tasks/getTasks', async ({ todoListId }, { rejectWithValue }) => {
+  const data: GetTasksResponse = await fetchTasks.getTasks(todoListId);
 
   if (!data) {
     return rejectWithValue('Todo-lists not found');
@@ -64,8 +61,8 @@ export const deleteTask = createAsyncThunk<
   { taskId: string },
   DeleteParametersData,
   { rejectValue: string }
->('tasks/deleteTask', async ({ baseUrl, todoListId, taskId }, { rejectWithValue }) => {
-  const data = await fetchTasks.deleteTask(baseUrl, todoListId, taskId);
+>('tasks/deleteTask', async ({ todoListId, taskId }, { rejectWithValue }) => {
+  const data = await fetchTasks.deleteTask(todoListId, taskId);
   if (!data) {
     return rejectWithValue('Title is not assiagment');
   }
@@ -77,8 +74,8 @@ export const createTask = createAsyncThunk<
   Response<{ item: TaskType }>,
   CreateParametersData,
   { rejectValue: string }
->('tasks/createTask', async ({ baseUrl, todoListId, taskTitle }, { rejectWithValue }) => {
-  const data = await fetchTasks.createTask(baseUrl, todoListId, taskTitle);
+>('tasks/createTask', async ({ todoListId, taskTitle }, { rejectWithValue }) => {
+  const data = await fetchTasks.createTask(todoListId, taskTitle);
   if (!data) {
     return rejectWithValue('Title is not assiagment');
   }
@@ -90,17 +87,20 @@ export const updateTask = createAsyncThunk(
   'tasks/updateTask',
   async (
     {
-      baseUrl,
       todoListId,
+      taskId,
       model,
-    }: { baseUrl: string; todoListId: string | undefined; model: UpdateTaskModel },
+    }: {
+      todoListId: string | undefined;
+      taskId: string | undefined;
+      model: UpdateTaskModel;
+    },
     { rejectWithValue, getState },
   ) => {
     const state = getState() as RootState;
     const task: TaskType | undefined = state.tasks.tasks.find(
       item => item.todoListId === todoListId,
     );
-    const taskId = task?.id;
 
     const apiModel: UpdateTaskModel = {
       title: task?.title,
@@ -113,7 +113,6 @@ export const updateTask = createAsyncThunk(
     };
 
     const data: Response<{ item: TaskType }> = await fetchTasks.updateTask(
-      baseUrl,
       todoListId,
       taskId,
       apiModel,

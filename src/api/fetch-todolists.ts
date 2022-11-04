@@ -1,7 +1,8 @@
 const apiKey = process.env.REACT_APP_API_KEY || '';
+const baseUrl = process.env.REACT_APP_BASE_URL || '';
 
 const fetchTodoList = {
-  getTodoLists: async (baseUrl: string | undefined): Promise<TodoListType[]> => {
+  getTodoLists: async (): Promise<TodoListType[]> => {
     const response = await fetch(`${baseUrl}/todo-lists`, {
       method: 'GET',
       credentials: 'include',
@@ -11,7 +12,6 @@ const fetchTodoList = {
     return todoLists;
   },
   createTodoList: async (
-    baseUrl: string | undefined,
     newTitle: string,
   ): Promise<ResponseType<{ item: TodoListType }>> => {
     const response = await fetch(`${baseUrl}/todo-lists/`, {
@@ -27,10 +27,7 @@ const fetchTodoList = {
     const data = await response.json();
     return data;
   },
-  deleteTodoList: async (
-    baseUrl: string | undefined,
-    todoListId: string,
-  ): Promise<ResponseType<{}>> => {
+  deleteTodoList: async (todoListId: string): Promise<ResponseType<{}>> => {
     const response = await fetch(`${baseUrl}/todo-lists/${todoListId}`, {
       method: 'DELETE',
       credentials: 'include',
@@ -43,7 +40,6 @@ const fetchTodoList = {
     return data;
   },
   updateTodoList: async (
-    baseUrl: string | undefined,
     todoListId: string,
     newTitle: string,
   ): Promise<ResponseType<{}>> => {

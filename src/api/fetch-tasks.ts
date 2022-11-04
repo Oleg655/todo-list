@@ -1,10 +1,8 @@
 const apiKey = process.env.REACT_APP_API_KEY || '';
+const baseUrl = process.env.REACT_APP_BASE_URL || '';
 
 const fetchTasks = {
-  getTasks: async (
-    baseUrl: string | undefined,
-    todoListId: string | undefined,
-  ): Promise<GetTasksResponse> => {
+  getTasks: async (todoListId: string | undefined): Promise<GetTasksResponse> => {
     const response = await fetch(`${baseUrl}/todo-lists/${todoListId}/tasks`, {
       method: 'GET',
       credentials: 'include',
@@ -13,7 +11,6 @@ const fetchTasks = {
     return data;
   },
   createTask: async (
-    baseUrl: string | undefined,
     todoListId: string | undefined,
     title: string,
   ): Promise<Response<{ item: TaskType }>> => {
@@ -30,7 +27,6 @@ const fetchTasks = {
     return data;
   },
   deleteTask: async (
-    baseUrl: string | undefined,
     todoListId: string | undefined,
     taskId: string,
   ): Promise<Response> => {
@@ -45,7 +41,6 @@ const fetchTasks = {
     return data;
   },
   updateTask: async (
-    baseUrl: string | undefined,
     todoListId: string | undefined,
     taskId: string | undefined,
     model: UpdateTaskParamsModel,

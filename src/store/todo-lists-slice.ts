@@ -19,27 +19,24 @@ const initialState: InitialState = {
 };
 
 type UpdateParametersData = {
-  baseUrl: string;
   todoListId: string;
   todoListTitle: string;
 };
 
 type CreateParametersData = {
-  baseUrl: string;
   todoListTitle: string;
 };
 
 type DeleteParametersData = {
-  baseUrl: string;
   todoListId: string;
 };
 
 export const getTodoLists = createAsyncThunk<
   TodoListType[],
-  string,
+  undefined,
   { rejectValue: string }
->('todoLists/getTodoLists', async (baseUrl: string, { rejectWithValue }) => {
-  const data = await fetchTodoList.getTodoLists(baseUrl);
+>('todoLists/getTodoLists', async (_, { rejectWithValue }) => {
+  const data = await fetchTodoList.getTodoLists();
 
   if (!data) {
     return rejectWithValue('Todo-lists not found');
@@ -54,8 +51,8 @@ export const updateTodoList = createAsyncThunk<
   { rejectValue: string }
 >(
   'todoLists/updateTodoList',
-  async ({ baseUrl, todoListId, todoListTitle }, { rejectWithValue }) => {
-    const data = await fetchTodoList.updateTodoList(baseUrl, todoListId, todoListTitle);
+  async ({ todoListId, todoListTitle }, { rejectWithValue }) => {
+    const data = await fetchTodoList.updateTodoList(todoListId, todoListTitle);
     if (!data) {
       return rejectWithValue('Title is not assiagment');
     }
@@ -68,8 +65,8 @@ export const createTodoList = createAsyncThunk<
   ResponseType<{ item: TodoListType }>,
   CreateParametersData,
   { rejectValue: string }
->('todoLists/createTodoList', async ({ baseUrl, todoListTitle }, { rejectWithValue }) => {
-  const data = await fetchTodoList.createTodoList(baseUrl, todoListTitle);
+>('todoLists/createTodoList', async ({ todoListTitle }, { rejectWithValue }) => {
+  const data = await fetchTodoList.createTodoList(todoListTitle);
   if (!data) {
     return rejectWithValue('Title is not assiagment');
   }
@@ -81,8 +78,8 @@ export const deleteTodoList = createAsyncThunk<
   { todoListId: string },
   DeleteParametersData,
   { rejectValue: string }
->('todoLists/deleteTodoList', async ({ baseUrl, todoListId }, { rejectWithValue }) => {
-  const data = await fetchTodoList.deleteTodoList(baseUrl, todoListId);
+>('todoLists/deleteTodoList', async ({ todoListId }, { rejectWithValue }) => {
+  const data = await fetchTodoList.deleteTodoList(todoListId);
   if (!data) {
     return rejectWithValue('Title is not assiagment');
   }
