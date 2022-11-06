@@ -30,13 +30,14 @@ const TaskItem = ({ taskId, title }: TaskItemProps) => {
     <li className={styles.item}>
       <figure>
         <blockquote>
-          <figcaption>{currentTodoList!.title}</figcaption>
-          <EditableSpan onSendData={onUpdateTaskHandler} title={title} />
+          <figcaption>{currentTodoList && currentTodoList.title}</figcaption>
         </blockquote>
+        <EditableSpan onSendData={onUpdateTaskHandler} title={title} />
       </figure>
       {/* <Link to="edit">Edit Task</Link> */}
-      <Button onButtonClick={deleteTaskHandler} title="Delete" />
-      {/* <Button onButtonClick={onEditMode} title="Edit task" /> */}
+      <div>
+        <Button onButtonClick={deleteTaskHandler} title="Delete" />
+      </div>
     </li>
   );
 };

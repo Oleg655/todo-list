@@ -1,11 +1,19 @@
 .item {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+
   background-color: #3a3b4f;
-  color: white;
-  border-radius: 6px;
-  padding: 3rem;
+  border-radius: 1rem;
+  padding: 0rem 1rem;
   margin: 3rem auto;
-  width: 90%;
-  max-width: 40rem;
+	height: 20rem;
+  max-width: 50rem;
+}
+
+.wrapper{
+	display: flex;
+	justify-content: space-between;
 }
 
 .item blockquote {
@@ -13,9 +21,14 @@
 	color: #0d0d12;
 }
 
-.item a {
-  font-style: italic;
-  font-size: 1.5rem;
-  text-align: right;
-  color: #a1e0e0;
+.link:link,
+.link:visited {
+  font-size: 2.5rem;
+  color: #898995;
+}
+
+.link:hover,
+.link:active {
+  font-size: 2.5rem;
+  color: #111218;
 }

@@ -13,7 +13,7 @@ const NewTodoList = () => {
 
   return (
     <div>
-      <AddItemForm onAddItem={addTodoList} />
+      <AddItemForm title="Add New Todo" onAddItem={addTodoList} />
     </div>
   );
 };

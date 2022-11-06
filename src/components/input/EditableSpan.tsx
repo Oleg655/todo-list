@@ -12,6 +12,8 @@ const EditableSpan = ({ title, onSendData }: EditableSpanProps) => {
   const [editMode, setEditMode] = useState(false);
   const [changedTitle, setChangedTitle] = useState('');
 
+  // console.log(editMode);
+
   const onEditMode = () => {
     setEditMode(true);
     setChangedTitle(title);
@@ -22,10 +24,9 @@ const EditableSpan = ({ title, onSendData }: EditableSpanProps) => {
     onSendData(changedTitle);
   };
 
-  const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+  const pressEnterKeyHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      setEditMode(false);
-      onSendData(changedTitle);
+      onEditMode();
     }
   };
 
@@ -34,7 +35,7 @@ const EditableSpan = ({ title, onSendData }: EditableSpanProps) => {
   };
 
   return (
-    <div>
+    <div onDoubleClick={onEditMode} className={styles.wrapper}>
       {editMode ? (
         <>
           <input
@@ -43,16 +44,13 @@ const EditableSpan = ({ title, onSendData }: EditableSpanProps) => {
             autoFocus
             value={changedTitle}
             onBlur={onViewMode}
-            onKeyDown={onKeyPressHandler}
+            onKeyPress={pressEnterKeyHandler}
             className={styles.input}
           />
           <Button onButtonClick={onViewMode} title="Done" />
         </>
       ) : (
-        <>
-          <span onDoubleClick={onEditMode}>{title}</span>
-          <Button onButtonClick={onEditMode} title="Edit task" />
-        </>
+        <span>{title}</span>
       )}
     </div>
   );

@@ -1,23 +1,21 @@
 import { ChangeEvent, useState, KeyboardEvent } from 'react';
 
-// import LoadingSpinner from 'components/ui/LoadingSpinner';
-import Wrapper from 'components/ui/Wrapper';
-
 import styles from './AddItemForm.module.scss';
 import Button from './Button';
 
 type AddItemFormProps = {
   onAddItem: (title: string) => void;
+  title: string;
 };
 
-const AddItemForm = ({ onAddItem }: AddItemFormProps) => {
-  const [title, setTitle] = useState('');
+const AddItemForm = ({ onAddItem, title }: AddItemFormProps) => {
+  const [newTitle, setTitle] = useState('');
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.currentTarget.value);
   };
 
   const onAddItemHandler = () => {
-    if (title.trim() !== '') {
+    if (newTitle.trim() !== '') {
       onAddItem(title);
       setTitle('');
     }
@@ -30,29 +28,17 @@ const AddItemForm = ({ onAddItem }: AddItemFormProps) => {
   };
 
   return (
-    <Wrapper>
-      <div>
-        <div className={styles.control}>
-          <label htmlFor="text">
-            <input
-              onKeyDown={onKeyPressHandler}
-              onChange={onChangeHandler}
-              value={title}
-              id="text"
-            />
-          </label>
-        </div>
+    <div className={styles.wrapper}>
+      <input
+        className={styles.input}
+        onKeyDown={onKeyPressHandler}
+        onChange={onChangeHandler}
+        value={newTitle}
+        placeholder={title}
+      />
 
-        <div className={styles.actions}>
-          <Button onButtonClick={onAddItemHandler} title="Add" />
-        </div>
-      </div>
-      {/* {props.isLoading && (
-          <div className={styles.loading}>
-            <LoadingSpinner />
-          </div>
-        )} */}
-    </Wrapper>
+      <Button onButtonClick={onAddItemHandler} title="Add" />
+    </div>
   );
 };
 

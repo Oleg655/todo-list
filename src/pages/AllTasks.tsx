@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 
+// import Button from 'components/input/Button';
+// import Input from 'components/input/Input';
+import AddItemForm from 'components/input/AddItemForm';
 import TasksList from 'components/tasks/TasksList';
 import { useAppDispatch } from 'hooks/types';
 import { useParams } from 'react-router-dom';
-import { createTask, deleteTask, getTasks } from 'store/tasks-slice';
+import { createTask, getTasks } from 'store/tasks-slice';
 
 const AllTasks = () => {
   const params = useParams<string>();
@@ -11,8 +14,12 @@ const AllTasks = () => {
   // const tasks = useAppSelector(state => state.tasks.tasks);
 
   const todoListId = params.id;
-  const title = 'NEW TASK???????';
-  const taskId = 'a2fbe001-65e6-48de-a442-81d4d082084f';
+
+  const addTaskHandler = (newTitle: string) => {
+    dispatch(createTask({ todoListId, taskTitle: newTitle }));
+  };
+
+  // const addTaskButtonHandler = () => {};
 
   useEffect(() => {
     dispatch(getTasks({ todoListId }));
@@ -20,31 +27,8 @@ const AllTasks = () => {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => {
-          dispatch(createTask({ todoListId, taskTitle: title }));
-        }}
-      >
-        add
-      </button>
-      <TasksList />
-      <button
-        type="button"
-        onClick={() => {
-          dispatch(deleteTask({ todoListId, taskId }));
-        }}
-      >
-        delete
-      </button>
-      {/* <button
-        type="button"
-        onClick={() => {
-          dispatch(updateTask({ todoListId, model: { title: newTitle } }));
-        }}
-      >
-        dfb
-      </button> */}
+      <AddItemForm title="Add New Task" onAddItem={addTaskHandler} />
+      <TasksList />;
     </>
   );
 };

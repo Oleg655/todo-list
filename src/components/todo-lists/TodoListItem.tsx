@@ -25,8 +25,12 @@ const TodoListItem = ({ id, title }: TodoListItemProps) => {
   return (
     <li className={styles.item}>
       <EditableSpan onSendData={onUpdateTodoListHandler} title={title} />
-      <Link to={`/todo-lists/${id}`}>View Tasks</Link>
-      <Button onButtonClick={deleteTodoListHandler} title="delete" />
+      <div className={styles.wrapper}>
+        <Link className={styles.link} to={`/todo-lists/${id}`}>
+          View Tasks
+        </Link>
+        <Button onButtonClick={deleteTodoListHandler} title="Delete" />
+      </div>
     </li>
   );
 };

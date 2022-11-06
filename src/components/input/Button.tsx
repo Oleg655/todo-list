@@ -6,8 +6,12 @@ type ButtonProps = {
 };
 
 const Button = ({ title, onButtonClick }: ButtonProps) => {
+  const onHandleButtonClick = () => {
+    onButtonClick();
+  };
+
   return (
-    <button onClick={onButtonClick} className={styles.btn} type="button">
+    <button onClick={onHandleButtonClick} className={styles.btn} type="button">
       {title}
     </button>
   );

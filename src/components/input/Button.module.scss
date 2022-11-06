@@ -1,11 +1,15 @@
 .btn {
-	// display: block;
-  // text-decoration: none;
-  background-color: teal;
-  color: white;
-  border-radius: 4px;
-	text-align: right;
-  // padding: 0.75rem 1.5rem;
-  // border: 1px solid teal;
+  background-color: #23232f;
+  color: #d8d8dc;
+  border-radius: 0.5rem;
+	font-size: 2.5rem;
+	line-height: 0;
+	padding: 2rem;
+	border: none;
   cursor: pointer;
+}
+
+.btn:hover,
+.btn:active{
+	background-color: #111218;
 }

@@ -4,7 +4,6 @@ import { useAppDispatch } from 'hooks/types';
 import Layout from 'layout/Layout';
 import AllTasks from 'pages/AllTasks';
 import AllTodoLists from 'pages/AllTodoLists';
-import NewTask from 'pages/NewTask';
 import NewTodoList from 'pages/NewTodoList';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { getTodoLists } from 'store/todo-lists-slice';
@@ -23,7 +22,6 @@ const App: React.FC = () => {
         <Route path="/todo-lists" element={<AllTodoLists />} />
 
         <Route path="/todo-lists/:id" element={<AllTasks />} />
-        <Route path="todo-lists/:id/edit" element={<NewTask />} />
 
         <Route path="/new-todo-lists" element={<NewTodoList />} />
       </Routes>
