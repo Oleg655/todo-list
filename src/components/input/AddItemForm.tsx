@@ -16,7 +16,7 @@ const AddItemForm = ({ onAddItem, title }: AddItemFormProps) => {
 
   const onAddItemHandler = () => {
     if (newTitle.trim() !== '') {
-      onAddItem(title);
+      onAddItem(newTitle);
       setTitle('');
     }
   };

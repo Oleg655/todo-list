@@ -5,6 +5,11 @@
 	cursor: pointer;
 }
 
+.wrapper:hover span{
+	color: #6e6e71;
+}
+
+
 .input {
   font-size: 3.5rem;
   font-family: inherit;
@@ -17,12 +22,10 @@
 span {
   font-size: 3.5rem;
   cursor: pointer;
-  color: #d8d8dc;
+  letter-spacing: .3rem;
+	color: #0d0d12;
 }
-
-span:hover {
-  color: #757684;
-}
+  
 
 .btn {
   background-color: #23232f;

@@ -5,7 +5,7 @@ import styles from './MainNavigation.module.scss';
 const MainNavigation = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>Great </div>
+      <div className={styles.logo}>Create your own todo</div>
       <nav className={styles.nav}>
         <ul>
           <li>
@@ -13,7 +13,7 @@ const MainNavigation = () => {
               to="todo-lists"
               className={({ isActive }) => (isActive ? styles.active : undefined)}
             >
-              All Todo Lists
+              All Todo
             </NavLink>
           </li>
           <li>
@@ -21,7 +21,7 @@ const MainNavigation = () => {
               to="new-todo-lists"
               className={({ isActive }) => (isActive ? styles.active : undefined)}
             >
-              New Todo List
+              New Todo
             </NavLink>
           </li>
         </ul>

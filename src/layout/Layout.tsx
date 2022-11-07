@@ -9,10 +9,10 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <>
+    <div className={styles.main}>
       <MainNavigation />
-      <main className={styles.main}>{children}</main>;
-    </>
+      <main>{children}</main>;
+    </div>
   );
 };
 

@@ -10,10 +10,9 @@ import { createTask, getTasks } from 'store/tasks-slice';
 
 const AllTasks = () => {
   const params = useParams<string>();
-  const dispatch = useAppDispatch();
-  // const tasks = useAppSelector(state => state.tasks.tasks);
-
   const todoListId = params.id;
+
+  const dispatch = useAppDispatch();
 
   const addTaskHandler = (newTitle: string) => {
     dispatch(createTask({ todoListId, taskTitle: newTitle }));

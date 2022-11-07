@@ -1,34 +1,30 @@
 .item {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 
-  background-color: #3a3b4f;
+  background-color: #fef0b9;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
   padding: 0rem 1rem;
   margin: 3rem auto;
-	height: 20rem;
+  height: 20rem;
   max-width: 50rem;
 }
 
-.wrapper{
-	display: flex;
-	justify-content: space-between;
-}
-
-.item blockquote {
-  font-size: 2.5rem;
-	color: #0d0d12;
+.wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 .link:link,
 .link:visited {
   font-size: 2.5rem;
-  color: #898995;
+  color: #f57c00;
 }
 
 .link:hover,
 .link:active {
   font-size: 2.5rem;
-  color: #111218;
+  color: #934a00;
 }

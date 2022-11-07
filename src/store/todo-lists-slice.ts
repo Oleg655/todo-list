@@ -133,7 +133,7 @@ const todoListsSlice = createSlice({
         state.error = null;
       })
       .addCase(createTodoList.fulfilled, (state, action) => {
-        state.todoLists.push(action.payload.data.item);
+        state.todoLists.unshift(action.payload.data.item);
         state.loading = false;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {

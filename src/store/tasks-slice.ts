@@ -155,7 +155,7 @@ const tasksSlice = createSlice({
         state.error = null;
       })
       .addCase(createTask.fulfilled, (state, action) => {
-        state.tasks.push(action.payload.data.item);
+        state.tasks.unshift(action.payload.data.item);
         state.loading = false;
       })
       .addCase(updateTask.pending, state => {
