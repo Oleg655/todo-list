@@ -19,9 +19,6 @@ const Form = () => {
     setRememberMe(event.currentTarget.checked);
   };
 
-  const validateName = (value: string) => value.trim() !== '';
-  const validatePassword = (value: string) => value.trim() !== '';
-
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
@@ -29,7 +26,7 @@ const Form = () => {
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
     reset: resetEmailInput,
-  } = useInput(validateName);
+  } = useInput((value: string) => value.trim() !== '');
 
   const {
     value: enteredPassword,
@@ -38,7 +35,7 @@ const Form = () => {
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
     reset: resetPasswordInput,
-  } = useInput(validatePassword);
+  } = useInput((value: string) => value.trim() !== '');
 
   let formIsValid = false;
 
