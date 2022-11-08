@@ -28,12 +28,6 @@ type CreateParametersData = {
   taskTitle: string;
 };
 
-// type UpdateParametersData = {
-//   baseUrl: string;
-//   todoListId: string;
-//   model: UpdateTaskModel;
-// };
-
 type UpdateTaskModel = {
   title?: string;
   description?: string;

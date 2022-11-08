@@ -16,12 +16,22 @@ const MainNavigation = () => {
               All Todo
             </NavLink>
           </li>
+
           <li>
             <NavLink
               to="new-todo-lists"
               className={({ isActive }) => (isActive ? styles.active : undefined)}
             >
               New Todo
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="login"
+              className={({ isActive }) => (isActive ? styles.active : undefined)}
+            >
+              Login
             </NavLink>
           </li>
         </ul>

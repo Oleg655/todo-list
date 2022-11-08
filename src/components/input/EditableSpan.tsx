@@ -12,8 +12,6 @@ const EditableSpan = ({ title, onSendData }: EditableSpanProps) => {
   const [editMode, setEditMode] = useState(false);
   const [changedTitle, setChangedTitle] = useState('');
 
-  // console.log(editMode);
-
   const onEditMode = () => {
     setEditMode(true);
     setChangedTitle(title);

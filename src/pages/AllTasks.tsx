@@ -18,8 +18,6 @@ const AllTasks = () => {
     dispatch(createTask({ todoListId, taskTitle: newTitle }));
   };
 
-  // const addTaskButtonHandler = () => {};
-
   useEffect(() => {
     dispatch(getTasks({ todoListId }));
   }, [dispatch, todoListId]);

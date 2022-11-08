@@ -30,11 +30,11 @@ const TaskItem = ({ taskId, title }: TaskItemProps) => {
     <li className={styles.item}>
       <figure>
         <blockquote>
+          <input type="checkbox" />
           <figcaption>{currentTodoList && currentTodoList.title}</figcaption>
         </blockquote>
         <EditableSpan onSendData={onUpdateTaskHandler} title={title} />
       </figure>
-      {/* <Link to="edit">Edit Task</Link> */}
       <div>
         <Button onButtonClick={deleteTaskHandler} title="Delete" />
       </div>
