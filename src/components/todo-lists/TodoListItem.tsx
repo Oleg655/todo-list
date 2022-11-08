@@ -4,7 +4,7 @@ import { useAppDispatch } from 'hooks/types';
 import { Link } from 'react-router-dom';
 import { deleteTodoList, updateTodoList } from 'store/todo-lists-slice';
 
-import styles from './TodoListItem.module.scss';
+import styles from './TodoListItem.module.css';
 
 type TodoListItemProps = {
   id: string;

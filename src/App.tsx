@@ -1,24 +1,32 @@
 import { useEffect } from 'react';
 
-import { useAppDispatch } from 'hooks/types';
+import { useAppDispatch, useAppSelector } from 'hooks/types';
 import Layout from 'layout/Layout';
 import AllTasks from 'pages/AllTasks';
 import AllTodoLists from 'pages/AllTodoLists';
 import Login from 'pages/Login';
 import NewTodoList from 'pages/NewTodoList';
-import { Route, Routes } from 'react-router-dom';
-import { getTodoLists } from 'store/todo-lists-slice';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { authMe } from 'store/auth-slice';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  // const me = useAppSelector(state => state.auth.me);
 
   useEffect(() => {
-    dispatch(getTodoLists());
-  }, [dispatch]);
+    dispatch(authMe());
+  }, []);
+
+  // if (!me) {
+  //   return <h1>Loading...</h1>;
+  // }
 
   return (
     <Layout>
       <Routes>
+        {!isLoggedIn && <Route path="/" element={<Navigate to="/login" />} />}
+
         <Route path="/login" element={<Login />} />
         <Route path="/todo-lists" element={<AllTodoLists />} />
 

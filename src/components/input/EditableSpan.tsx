@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, KeyboardEvent } from 'react';
 
 import Button from './Button';
-import styles from './EditableSpan.module.scss';
+import styles from './EditableSpan.module.css';
 
 type EditableSpanProps = {
   title: string;

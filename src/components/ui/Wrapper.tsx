@@ -1,4 +1,4 @@
-import styles from './Wrapper.module.scss';
+import styles from './Wrapper.module.css';
 
 type WrapperProps = {
   children: JSX.Element;

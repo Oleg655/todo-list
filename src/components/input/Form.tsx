@@ -1,13 +1,17 @@
 import { FormEvent, useState, ChangeEvent } from 'react';
 
-import { useAppDispatch } from 'hooks/types';
+import { useAppDispatch, useAppSelector } from 'hooks/types';
 import useInput from 'hooks/useInput';
+import { useNavigate } from 'react-router-dom';
 import { authLogin } from 'store/auth-slice';
 
 import styles from './Form.module.css';
 
 const Form = () => {
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+
+  const navigate = useNavigate();
 
   const [rememberMe, setRememberMe] = useState(false);
 
@@ -45,6 +49,9 @@ const Form = () => {
   const formSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
     if (!enteredEmailIsValid) {
       return;
     }
@@ -52,6 +59,8 @@ const Form = () => {
 
     resetEmailInput();
     resetPasswordInput();
+
+    navigate('/todo-lists');
   };
 
   const nameInputClasses = emailInputHasError
@@ -86,7 +95,7 @@ const Form = () => {
           />
         </label>
         {passwordInputHasError && (
-          <p className={styles.error}>Name is must not be empty</p>
+          <p className={styles.error}>Password is must not be empty</p>
         )}
       </div>
 

@@ -1,6 +1,6 @@
 import { ChangeEvent, useState, KeyboardEvent } from 'react';
 
-import styles from './AddItemForm.module.scss';
+import styles from './AddItemForm.module.css';
 import Button from './Button';
 
 type AddItemFormProps = {

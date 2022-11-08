@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/types';
 import { useParams } from 'react-router-dom';
 import { deleteTask, updateTask } from 'store/tasks-slice';
 
-import styles from './TaskItem.module.scss';
+import styles from './TaskItem.module.css';
 
 type TaskItemProps = {
   taskId: string;
